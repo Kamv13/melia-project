@@ -15,3 +15,12 @@
 **Build commands**
 - Dev: `npm start` (uses `proxy.conf.json`)
 - Production: `npm run build` (output in `dist/melia-site/browser`)
+
+
+| Piece | What it does |
+
+| `Navbar` | Shows on every page; clicking the title goes home |
+| `Home` | Full-screen background; the button leads to the register page |
+| `Register` | Signal Forms validation (username 4+, password 6+, passwords match), shows success or Melia's error message |
+| `AccountService` | The only file that calls the server |
+| `meliaHash` | Hashes the password the same way the game client does, so web-created accounts can log in |
