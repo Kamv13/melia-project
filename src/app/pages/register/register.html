@@ -1,0 +1,46 @@
+<main class="register-page">
+  <div class="register-layout">
+    <aside class="art-box">
+      <img src="/images/register-sideimg.webp" alt="Giltine and Laima" />
+    </aside>
+
+    <section class="form-card">
+      <h1>Create account</h1>
+      <p class="subtitle">Register to log in through the game client.</p>
+
+      <form (submit)="submit($event)">
+        <label>
+          Username
+          <input [formField]="registerForm.username" />
+        </label>
+        @if (registerForm.username().touched() && registerForm.username().invalid()) {
+          <small class="error">Username must be at least 4 characters.</small>
+        }
+
+        <label>
+          Password
+          <input type="password" [formField]="registerForm.password" />
+        </label>
+        @if (registerForm.password().touched() && registerForm.password().invalid()) {
+          <small class="error">Password must be at least 6 characters.</small>
+        }
+
+        <label>
+          Confirm password
+          <input type="password" [formField]="registerForm.confirm" />
+        </label>
+        @if (registerForm.confirm().touched() && registerForm.confirm().invalid()) {
+          <small class="error">Please confirm your password.</small>
+        }
+
+        <button type="submit" class="btn-gold" [disabled]="loading()">
+          {{ loading() ? 'Creating...' : 'Register' }}
+        </button>
+      </form>
+
+      @if (message()) {
+        <p class="message" [class.ok]="success()" [class.fail]="!success()">{{ message() }}</p>
+      }
+    </section>
+  </div>
+</main>
