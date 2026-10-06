@@ -1,0 +1,98 @@
+<main class="db-page">
+  <section class="db-card">
+    @if (item.isLoading()) {
+      <p class="muted">Loading...</p>
+    } @else if (item.error()) {
+      <a routerLink="/database" class="back">Back to database</a>
+      <p class="muted">Item not found.</p>
+    } @else if (item.hasValue()) {
+      @let i = item.value();
+      @let isRecipe = i.type === 'Recipe';
+
+      <a [routerLink]="isRecipe ? '/database/recipes' : '/database/items'" class="back">
+        Back to {{ isRecipe ? 'recipes' : 'items' }}
+      </a>
+      <h1>{{ i.name }}</h1>
+      <p class="muted">{{ i.type }} · {{ i.group }} · Level {{ i.minLevel }}</p>
+
+      @if (i.recipe) {
+        @if (i.recipe.product; as product) {
+          <div class="db-block">
+            <h2>Crafts</h2>
+            <p class="product">
+              <a [routerLink]="['/database/items', product.id]">{{ product.name }}</a>
+              <span class="muted">x{{ product.amount }}</span>
+            </p>
+
+            @if (product.stats.length) {
+              <div class="stat-grid">
+                @for (stat of product.stats; track stat.label) {
+                  <div class="stat">
+                    <span class="muted">{{ stat.label }}</span>
+                    <span>{{ stat.value }}</span>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        }
+
+        <div class="db-block">
+          <h2>Materials</h2>
+          <table class="db-table">
+            <tbody>
+              @for (material of i.recipe.materials; track $index) {
+                <tr>
+                  <td>
+                    @if (material.id) {
+                      <a [routerLink]="['/database/items', material.id]">{{ material.name }}</a>
+                    } @else {
+                      {{ material.name }}
+                    }
+                  </td>
+                  <td class="num">x{{ material.amount }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      } @else if (i.stats.length) {
+        <div class="db-block">
+          <h2>Stats</h2>
+          <div class="stat-grid">
+            @for (stat of i.stats; track stat.label) {
+              <div class="stat">
+                <span class="muted">{{ stat.label }}</span>
+                <span>{{ stat.value }}</span>
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      @if (i.droppedBy.length) {
+        <div class="db-block">
+          <h2>Dropped by</h2>
+          <table class="db-table">
+            <thead>
+              <tr>
+                <th>Monster</th>
+                <th class="num">Level</th>
+                <th class="num">Chance</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (monster of i.droppedBy; track $index) {
+                <tr>
+                  <td><a [routerLink]="['/database/monsters', monster.id]">{{ monster.name }}</a></td>
+                  <td class="num">{{ monster.level }}</td>
+                  <td class="num">{{ monster.chance }}%</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    }
+  </section>
+</main>

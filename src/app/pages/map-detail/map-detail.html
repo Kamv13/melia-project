@@ -1,0 +1,39 @@
+<main class="db-page">
+  <section class="db-card">
+    <a routerLink="/database/maps" class="back">Back to maps</a>
+
+    @if (map.isLoading()) {
+      <p class="muted">Loading...</p>
+    } @else if (map.error()) {
+      <p class="muted">Map not found.</p>
+    } @else if (map.hasValue()) {
+      @let m = map.value();
+      <h1>{{ m.name }}</h1>
+      <p class="muted">Lv {{ m.level }} · {{ m.type }}</p>
+
+      <h2>Monsters</h2>
+      <table class="db-table">
+        <thead>
+          <tr>
+            <th>Monster</th>
+            <th>Rank</th>
+            <th class="num">Level</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (monster of m.monsters; track monster.id) {
+            <tr>
+              <td><a [routerLink]="['/database/monsters', monster.id]">{{ monster.name }}</a></td>
+              <td>{{ monster.rank }}</td>
+              <td class="num">{{ monster.level }}</td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="3" class="muted">No monsters spawn here.</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  </section>
+</main>

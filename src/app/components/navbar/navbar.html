@@ -1,9 +1,12 @@
 <header class="navbar">
   <a routerLink="/" class="brand">AOI <span>ToS</span></a>
 
-  @if (!isLeaderboard()) {
-    <nav>
+  <nav>
+    @if (url() !== '/database') {
+      <a routerLink="/database" class="btn-gold">Database</a>
+    }
+    @if (url() !== '/leaderboard') {
       <a routerLink="/leaderboard" class="btn-gold">Leaderboard</a>
-    </nav>
-  }
+    }
+  </nav>
 </header>

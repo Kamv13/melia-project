@@ -12,11 +12,11 @@ import { filter, map } from 'rxjs';
 export class Navbar {
   private router = inject(Router);
 
-  isLeaderboard = toSignal(
+  url = toSignal(
     this.router.events.pipe(
       filter((e) => e instanceof NavigationEnd),
-      map((e) => e.urlAfterRedirects === '/leaderboard')
+      map((e) => e.urlAfterRedirects)
     ),
-    { initialValue: this.router.url === '/leaderboard' }
+    { initialValue: this.router.url }
   );
 }

@@ -1,0 +1,30 @@
+<main class="db-page">
+  <section class="db-card">
+    <a routerLink="/database" class="back">Back to database</a>
+    <h1>{{ title() }}</h1>
+
+    <form class="db-search" (submit)="search($event, box.value)">
+      <input #box placeholder="Search by name..." />
+      <button type="submit" class="btn-gold">Search</button>
+    </form>
+
+    @if (results.isLoading()) {
+      <p class="muted">Loading...</p>
+    } @else if (results.error()) {
+      <p class="muted">Could not load results.</p>
+    } @else if (results.hasValue()) {
+      <ul class="db-results">
+        @for (result of results.value(); track result.id) {
+          <li>
+            <a [routerLink]="['/database', type(), result.id]">
+              <span>{{ result.name }}</span>
+              <span class="muted">{{ result.info }}</span>
+            </a>
+          </li>
+        } @empty {
+          <li class="muted">No results.</li>
+        }
+      </ul>
+    }
+  </section>
+</main>

@@ -1,0 +1,14 @@
+<main class="db-page">
+  <section class="db-card">
+    <h1>Database</h1>
+
+    <div class="db-sections">
+      @for (section of sections; track section.type) {
+        <a class="db-section" [routerLink]="['/database', section.type]">
+          <h2>{{ section.title }}</h2>
+          <p class="muted">{{ section.description }}</p>
+        </a>
+      }
+    </div>
+  </section>
+</main>

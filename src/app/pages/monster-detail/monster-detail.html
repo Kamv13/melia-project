@@ -1,0 +1,86 @@
+<main class="db-page">
+  <section class="db-card">
+    <a routerLink="/database/monsters" class="back">Back to monsters</a>
+
+    @if (monster.isLoading()) {
+    <p class="muted">Loading...</p>
+    } @else if (monster.error()) {
+    <p class="muted">Monster not found.</p>
+    } @else if (monster.hasValue()) {
+    @let m = monster.value();
+    <h1>{{ m.name }}</h1>
+    <p class="muted">Lv {{ m.level }} · {{ m.rank }} · {{ m.race }} · {{ m.element }}</p>
+
+    <h2>Rewards</h2>
+    <table class="db-table">
+      <tbody>
+        <tr>
+          <td>HP</td>
+          <td class="num">{{ m.hp }}</td>
+        </tr>
+        <tr>
+          <td>Base EXP</td>
+          <td class="num">{{ m.exp }}</td>
+        </tr>
+        <tr>
+          <td>Class EXP</td>
+          <td class="num">{{ m.jobExp }}</td>
+        </tr>
+        <tr>
+          <td>Silver</td>
+          <td class="num">
+            @if (m.silver) {
+            {{ amount(m.silver.minAmount, m.silver.maxAmount) }} ({{ m.silver.chance }}%)
+            } @else {
+            None
+            }
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    @if (m.foundIn.length) {
+    <h2>Found in</h2>
+    <table class="db-table">
+      <thead>
+        <tr>
+          <th>Map</th>
+          <th class="num">Level</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (map of m.foundIn; track map.id) {
+        <tr>
+          <td><a [routerLink]="['/database/maps', map.id]">{{ map.name }}</a></td>
+          <td class="num">{{ map.level }}</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+    }
+    <h2>Drops</h2>
+    <table class="db-table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th class="num">Amount</th>
+          <th class="num">Chance</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (drop of m.drops; track drop.itemId) {
+        <tr>
+          <td><a [routerLink]="['/database/items', drop.itemId]">{{ drop.itemName }}</a></td>
+          <td class="num">{{ amount(drop.minAmount, drop.maxAmount) }}</td>
+          <td class="num">{{ drop.chance }}%</td>
+        </tr>
+        } @empty {
+        <tr>
+          <td colspan="3" class="muted">No drops.</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+    <p class="note muted">Base drop chances, before server drop rate settings.</p>
+    }
+  </section>
+</main>
