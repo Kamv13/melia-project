@@ -1,0 +1,100 @@
+.leaderboard-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 110px 1.5rem 3rem;
+  background:
+    radial-gradient(circle at 25% 35%, #3b2a31 0%, transparent 55%),
+    var(--bg);
+}
+
+.card {
+  width: 100%;
+  max-width: 720px;
+  height: fit-content;
+  padding: 2.5rem;
+  background: var(--surface);
+  border: 1px solid var(--gold-dim);
+  border-radius: 12px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+  margin-bottom: 1.5rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  text-align: left;
+  color: var(--gold);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--gold-dim);
+}
+
+td {
+  padding: 0.75rem 0.5rem 0.75rem 0;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.badge,
+.rank {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.badge {
+  border-radius: 50%;
+  color: #1a130d;
+}
+
+.badge.gold {
+  background: linear-gradient(180deg, #f5d77a, #c9a45c);
+  box-shadow: 0 0 12px rgba(245, 215, 122, 0.5);
+}
+
+.badge.silver {
+  background: linear-gradient(180deg, #f1f3f5, #a9b1ba);
+  box-shadow: 0 0 12px rgba(220, 225, 230, 0.35);
+}
+
+.badge.bronze {
+  background: linear-gradient(180deg, #e3a76f, #a5653a);
+  box-shadow: 0 0 12px rgba(227, 167, 111, 0.35);
+}
+
+.rank {
+  color: var(--muted);
+}
+
+tr.podium td {
+  font-weight: 600;
+}
+
+.job {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.job img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}

@@ -1,0 +1,51 @@
+<main class="leaderboard-page">
+  <section class="card">
+    <h1>Leaderboards</h1>
+
+    @if (leaderboard.isLoading()) {
+      <p class="muted">Loading...</p>
+    } @else if (leaderboard.error()) {
+      <p class="muted">Could not load the leaderboard.</p>
+    } @else if (leaderboard.hasValue()) {
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Team</th>
+            <th>Job</th>
+            <th>Level</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (entry of leaderboard.value().entries; track entry.name; let i = $index) {
+            <tr [class.podium]="i < 3">
+              <td>
+                @if (i < 3) {
+                  <span class="badge" [class.gold]="i === 0" [class.silver]="i === 1" [class.bronze]="i === 2">
+                    {{ i + 1 }}
+                  </span>
+                } @else {
+                  <span class="rank">{{ i + 1 }}</span>
+                }
+              </td>
+              <td>{{ entry.name }}</td>
+              <td>{{ entry.teamName }}</td>
+              <td>
+                <span class="job">
+                  <img [src]="'images/classes/' + entry.jobId + '.png'" alt="" (error)="hideIcon($event)" />
+                  {{ entry.jobName }}
+                </span>
+              </td>
+              <td>{{ entry.level }}</td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="5" class="muted">No characters yet.</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  </section>
+</main>

@@ -1,3 +1,9 @@
 <header class="navbar">
-  <a routerLink="/" class="brand">YAOI <span>ToS</span></a>
+  <a routerLink="/" class="brand">AOI <span>ToS</span></a>
+
+  @if (!isLeaderboard()) {
+    <nav>
+      <a routerLink="/leaderboard" class="btn-gold">Leaderboard</a>
+    </nav>
+  }
 </header>
